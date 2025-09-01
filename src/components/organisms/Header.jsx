@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useSelector } from 'react-redux';
 import { motion } from "framer-motion";
 import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
 import SearchBar from "@/components/molecules/SearchBar";
-
+import { AuthContext } from "@/App";
 const Header = ({ 
   onSearch, 
   onAddTask, 
@@ -11,6 +12,8 @@ const Header = ({
   searchQuery,
   className = "" 
 }) => {
+  const { logout } = useContext(AuthContext) || {};
+  const { user, isAuthenticated } = useSelector((state) => state.user);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   return (
@@ -61,7 +64,7 @@ const Header = ({
           </div>
 
           {/* Right section - Actions */}
-          <div className="flex items-center gap-3">
+<div className="flex items-center gap-3">
             <Button
               onClick={onAddTask}
               className="shadow-lg hover:shadow-xl"
@@ -73,9 +76,30 @@ const Header = ({
             </Button>
             
             <div className="hidden lg:flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-accent-500 to-accent-400 rounded-full flex items-center justify-center">
-                <ApperIcon name="User" className="w-4 h-4 text-white" />
-              </div>
+              {isAuthenticated && user && (
+                <div className="flex items-center gap-3">
+                  <div className="text-right">
+                    <div className="text-sm font-medium text-gray-900">
+                      {user.firstName} {user.lastName}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {user.emailAddress}
+                    </div>
+                  </div>
+                  <div className="w-8 h-8 bg-gradient-to-br from-accent-500 to-accent-400 rounded-full flex items-center justify-center">
+                    <ApperIcon name="User" className="w-4 h-4 text-white" />
+                  </div>
+                  <Button
+                    onClick={logout}
+                    variant="outline"
+                    size="sm"
+                    className="ml-2"
+                  >
+                    <ApperIcon name="LogOut" className="w-4 h-4 mr-1" />
+                    <span className="hidden sm:inline">Logout</span>
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </div>
