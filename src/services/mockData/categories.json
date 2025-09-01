@@ -1,0 +1,30 @@
+[
+  {
+    "Id": 1,
+    "name": "Work",
+    "color": "#5B21B6",
+    "icon": "Briefcase",
+    "order": 1
+  },
+  {
+    "Id": 2,
+    "name": "Development",
+    "color": "#EC4899",
+    "icon": "Code",
+    "order": 2
+  },
+  {
+    "Id": 3,
+    "name": "Personal",
+    "color": "#10B981",
+    "icon": "User",
+    "order": 3
+  },
+  {
+    "Id": 4,
+    "name": "Ideas",
+    "color": "#F59E0B",
+    "icon": "Lightbulb",
+    "order": 4
+  }
+]
